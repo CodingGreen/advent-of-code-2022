@@ -3,18 +3,16 @@ const {
 } = require('ramda');
 const { maxList } = require('./utils');
 
-function sumElvesCalories(input) {
-  return pipe(
-    trim,
-    split('\n\n'),
-    map(
-      pipe(
-        split('\n'),
-        sum,
-      ),
+const sumElvesCalories = pipe(
+  trim,
+  split('\n\n'),
+  map(
+    pipe(
+      split('\n'),
+      sum,
     ),
-  )(input);
-}
+  ),
+);
 
 function partOne(input) {
   return pipe(
