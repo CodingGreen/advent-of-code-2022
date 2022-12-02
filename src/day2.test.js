@@ -1,13 +1,14 @@
 const { partOne, partTwo } = require('./day2');
 
-const testData = `
-
+const testData = `A Y
+B X
+C Z
 `;
 
 test('Part One', () => {
-  expect(partOne(testData)).toBe();
+  expect(partOne(testData)).toBe(15);
 });
 
 test('Part Two', () => {
-  expect(partTwo(testData)).toBe();
+  expect(partTwo(testData)).toBe(12);
 });
