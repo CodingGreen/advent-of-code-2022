@@ -1,6 +1,7 @@
 const {
-  split, pipe, map, trim, sum, __, prop,
+  pipe, map, sum, __, prop,
 } = require('ramda');
+const { splitInput } = require('./utils');
 
 const movesCombinationPointsMap = {
   'A X': 4,
@@ -26,18 +27,13 @@ const resultCombinationPointsMap = {
   'C Z': 7,
 };
 
-const parseInput = pipe(
-  trim,
-  split('\n'),
-);
-
 const mapToPoints = (combinationPointsMap) => map(
   prop(__, combinationPointsMap),
 );
 
 function partOne(input) {
   return pipe(
-    parseInput,
+    splitInput,
     mapToPoints(movesCombinationPointsMap),
     sum,
   )(input);
@@ -45,7 +41,7 @@ function partOne(input) {
 
 function partTwo(input) {
   return pipe(
-    parseInput,
+    splitInput,
     mapToPoints(resultCombinationPointsMap),
     sum,
   )(input);
