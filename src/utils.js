@@ -1,5 +1,5 @@
 const {
-  reduce, head, max, pipe, trim, split,
+  reduce, head, max, pipe, trim, split, curry, gte, and, lte,
 } = require('ramda');
 
 function maxList(list) {
@@ -11,4 +11,11 @@ const splitInput = pipe(
   split('\n'),
 );
 
-module.exports = { maxList, splitInput };
+const between = curry(
+  (minBound, maxBound, value) => and(
+    gte(value, minBound),
+    lte(value, maxBound),
+  ),
+);
+
+module.exports = { maxList, splitInput, between };

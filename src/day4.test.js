@@ -1,13 +1,17 @@
 const { partOne, partTwo } = require('./day4');
 
-const testData = `
-
+const testData = `2-4,6-8
+2-3,4-5
+5-7,7-9
+2-8,3-7
+6-6,4-6
+2-6,4-8
 `;
 
 test('Part One', () => {
-  expect(partOne(testData)).toBe();
+  expect(partOne(testData)).toBe(2);
 });
 
 test('Part Two', () => {
-  expect(partTwo(testData)).toBe();
+  expect(partTwo(testData)).toBe(4);
 });
