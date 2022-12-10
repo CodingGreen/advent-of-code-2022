@@ -1,5 +1,5 @@
 const {
-  reduce, head, max, pipe, trim, split, curry, gte, and, lte,
+  reduce, head, max, pipe, trim, split, curry, gte, and, lte, tap, converge, unapply, identity,
 } = require('ramda');
 
 function maxList(list) {
@@ -18,4 +18,10 @@ const between = curry(
   ),
 );
 
-module.exports = { maxList, splitInput, between };
+const pipeLog = (message) => tap((value) => console.log(message, value));
+
+const diverge = converge(unapply(identity));
+
+module.exports = {
+  maxList, splitInput, between, pipeLog, diverge,
+};
