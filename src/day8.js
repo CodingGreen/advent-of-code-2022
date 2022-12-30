@@ -1,7 +1,7 @@
 const {
   pipe, add, __, split, trim, map, prop, subtract, repeat, gt, slice, range, sequence, of, path,
-  all, nth, anyPass, count, multiply, reduceWhile, lte, last, lt, uncurryN, append, flip, length,
-  identity, reduce, call, product, tap, converge, reverse, head, tail, findIndex, applyTo,
+  all, nth, anyPass, count, multiply, lte, length, product, reverse, findIndex, equals, always,
+  ifElse,
 } = require('ramda');
 const { maxList } = require('./utils');
 
@@ -52,20 +52,10 @@ function isTreeVisible(grid) {
   ])();
 }
 
-const greaterThanPrevious = uncurryN(2, pipe(last, tap(console.log), lt));
-const appendCurrentValue = flip(append);
-
-const countVisibleTrees = pipe(
-  tap(console.log),
-  converge(reduceWhile(pipe((a, b) => { console.log(a, b); return greaterThanPrevious(a, b); }, tap(console.log)), appendCurrentValue), [pipe(head, of), tail]),
-  tap(console.log),
-  length,
-);
-
-const viewingDistance = pipe(
-  lte,
-  findIndex,
-);
+const viewingDistance = (treeHeight) => (treeLine) => pipe(
+  findIndex(lte(treeHeight)),
+  ifElse(equals(-1), always(length(treeLine)), add(1)),
+)(treeLine);
 
 const getDirectionsForGrid = (grid) => (coordinates) => [
   getWestTrees(grid)(coordinates),
@@ -78,9 +68,8 @@ function scenicScore(grid) {
   const getDirections = getDirectionsForGrid(grid);
   return (coordinates) => {
     const treeHeight = path(coordinates, grid);
-    console.log('coordinates', coordinates, 'tree height', treeHeight);
     const directions = getDirections(coordinates);
-    return tap(console.log, product(tap(console.log, map(viewingDistance(treeHeight), directions))));
+    return product(map(viewingDistance(treeHeight), directions));
   };
 }
 
